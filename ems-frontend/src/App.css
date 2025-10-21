@@ -1,0 +1,193 @@
+/* Site variables */
+:root {
+	--text-dark-green: #0b4d3a; /* dark green used site-wide */
+	--accent-green: #6f9b1f;
+	--text-light-green: #9DB400; /* updated to the provided olive/yellow-green */
+}
+
+/* Force text color site-wide to dark green (override bootstrap where necessary) */
+body,
+body * {
+	color: var(--text-dark-green) !important;
+}
+
+/* Stronger guarantees for sidebar and main content areas */
+.left-sidebar,
+.left-sidebar *,
+.container,
+.container * {
+	color: var(--text-dark-green) !important;
+}
+
+/* Ensure links and buttons inside content and sidebar are dark green */
+.left-sidebar a,
+.container a,
+.left-sidebar a *,
+.container a * {
+	color: var(--text-dark-green) !important;
+}
+
+.left-sidebar .btn,
+.container .btn,
+.btn,
+.btn * {
+	color: var(--text-dark-green) !important;
+}
+
+/* Sidebar brand (moved from top) */
+.sidebar-brand {
+	padding: 28px 20px 8px 20px;
+	font-size: 18px;
+	font-weight: 700;
+	color: var(--text-dark-green) !important;
+}
+
+/* Left sidebar */
+.left-sidebar {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 260px;
+	height: 100vh;
+	background: #fff7f0; /* warm light background similar to screenshot */
+	border-right: 1px solid rgba(0, 0, 0, 0.04);
+	padding-top: 8px;
+	box-shadow: 4px 0 30px rgba(0, 0, 0, 0.03);
+	z-index: 20; /* keep sidebar above page content */
+}
+
+.left-sidebar nav ul {
+	list-style: none;
+	padding: 0 20px;
+	margin: 6px 0 0 0;
+}
+
+.left-sidebar nav li {
+	margin: 18px 0;
+}
+
+.sidebar-brand,
+.sidebar-brand * {
+	color: var(--text-light-green) !important;
+}
+.left-sidebar .sidebar-link,
+.left-sidebar .sidebar-link * {
+	color: var(--text-light-green) !important;
+}
+
+.container > .content-wrapper > h2,
+.container > .content-wrapper > h2 * {
+	color: var(--text-light-green) !important;
+}
+
+.table thead th,
+.table thead th * {
+	color: var(--text-light-green) !important;
+}
+
+
+/* Main content spacing so it doesn't collide with the sidebar */
+.container {
+	position: absolute;
+	left: 260px;
+	top: 0;
+	right: 0;
+	padding: 28px 40px 40px 40px; /* top and side padding for content */
+	min-height: 100vh;
+	box-sizing: border-box;
+	z-index: 1;
+}
+
+/* wrap content to prevent it stretching under the sidebar visual area */
+.content-wrapper {
+	max-width: 1100px;
+	margin: 0 auto;
+	background: transparent;
+}
+
+/* Dashboard cards */
+.dashboard-cards {
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+	margin-top: 20px;
+}
+
+.dashboard .card {
+	flex: 1 1 0;
+	background: white;
+	border-radius: 8px;
+	padding: 18px;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.dashboard .card h3 {
+	margin-top: 0;
+	margin-bottom: 8px;
+}
+
+.dashboard .card p {
+	margin: 6px 0;
+	font-weight: 600;
+}
+
+/* Ensure Add buttons align like other lists */
+.content-wrapper > .btn {
+	margin-bottom: 12px;
+}
+
+/* Ensure page headings don't add extra top space */
+.container h2 {
+	margin-top: 0.25rem;
+	color: var(--text-light-green) !important;
+}
+
+/* Style tweaks for headings to match screenshot */
+.text-center {
+	text-align: center;
+}
+
+/* Card/table aesthetic similar to screenshot */
+.table {
+	background: white;
+	z-index: 0;
+}
+
+/* Force button text (all variants) to dark green */
+.btn,
+.btn *,
+.btn-outline-primary,
+.btn-outline-info,
+.btn-outline-danger,
+.btn-outline-secondary,
+.btn-link {
+	color: var(--text-dark-green) !important;
+}
+
+/* Remove broad table cell color so headers can remain light green */
+
+/* (Removed conflicting dark-green overrides so light-green labels stay applied) */
+
+/* Small helpers */
+.btn-outline-info {
+	border-color: rgba(15, 157, 90, 0.15) !important;
+	color: var(--text-dark-green) !important;
+}
+
+.btn-outline-danger {
+	border-color: rgba(200, 50, 50, 0.15) !important;
+	color: var(--text-dark-green) !important;
+}
+
+/* Responsive: collapse sidebar on narrow screens */
+@media (max-width: 992px) {
+	.left-sidebar {
+		display: none;
+	}
+
+	.container {
+		margin-left: 0;
+		width: 100%;
+		padding-left: 16px;
+	}
+}
