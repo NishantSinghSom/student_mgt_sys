@@ -8,10 +8,7 @@ const ListStudentComponent = () => {
   return (
     <div className="container">
       <div className="content-wrapper">
-        <div className="page-card card-students">
-          <h3>Students</h3>
-          <p>No. of Students: {students.length}</p>
-        </div>
+        <h2 className="text-center my-3">List of Students</h2>
         <ButtonLink text="Add Student" toAction="/add-student" />
         <table className="table table-striped">
         <thead>

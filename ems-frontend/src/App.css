@@ -181,21 +181,23 @@ body:not(.show-sidebar) .left-sidebar {
 
 /* keep active state slightly darker to maintain emphasis */
 .left-sidebar .sidebar-link.active {
-	/* keep active non-dashboard links visually elevated but white */
-	background: rgba(255,255,255,0.98);
-	color: var(--text-light-green) !important;
-	box-shadow: 0 10px 30px rgba(8, 35, 25, 0.07);
+	/* Do not change the background on active; instead highlight with a subtle border and shadow */
+	background-clip: padding-box; /* ensure border doesn't overlay gradient */
+	border: 3px solid rgba(255,255,255,0.06);
+	box-shadow: 0 12px 30px rgba(8, 35, 25, 0.08);
 }
 
 /* Ensure the dashboard link keeps the same distinctive deep shade as in your screenshot */
 .left-sidebar .sidebar-link.dashboard-link {
 	/* Dashboard link keeps the original deep gradient */
-	background: linear-gradient(135deg, #064a3a 0%, #083d30 100%);
+	background: linear-gradient(135deg, #d2f160 0%, #d4a80b 100%);
 	color: white !important;
 }
 
 .left-sidebar .sidebar-link.dashboard-link.active {
-	background: linear-gradient(135deg, #d2f160 0%, #d4a80b 100%);
+	/* keep the dashboard gradient, but add a stronger border highlight when active */
+	border: 3px solid rgba(255,255,255,0.12);
+	box-shadow: 0 12px 36px rgba(4, 52, 43, 0.12);
 }
 
 /* Make other sidebar tabs (below Dashboard) use the same green gradient shade
@@ -217,7 +219,9 @@ body:not(.show-sidebar) .left-sidebar {
 .left-sidebar .sidebar-link.students-link.active,
 .left-sidebar .sidebar-link.departments-link.active,
 .left-sidebar .sidebar-link.courses-link.active {
-	background: linear-gradient(135deg, #1f7b56 0%, #064e3b 100%);
+	/* keep existing gradient, add a subtle border highlight instead of switching background */
+	border: 3px solid rgba(255,255,255,0.10);
+	box-shadow: 0 10px 30px rgba(6, 78, 59, 0.10);
 }
 
 /* wrap content to prevent it stretching under the sidebar visual area */
