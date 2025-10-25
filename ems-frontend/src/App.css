@@ -49,13 +49,14 @@ body * {
 	left: 0;
 	width: 260px;
 	height: 100vh;
-	background: #fff7f0; /* warm light background similar to screenshot */
-	border-right: 1px solid rgba(0, 0, 0, 0.04);
+	/* default: keep sidebar visually minimal (transparent) when collapsed
+	   so the colored panel only appears when expanded via body.show-sidebar */
+	background: transparent;
+	border-right: none;
 	padding-top: 8px;
-	box-shadow: 4px 0 30px rgba(0, 0, 0, 0.03);
+	box-shadow: none;
 	z-index: 20; /* keep sidebar above page content */
-	transform: translateX(-280px); /* hide by default */
-	transition: transform 220ms ease-in-out;
+	transition: width 220ms ease-in-out, left 220ms ease-in-out, background 220ms ease-in-out, box-shadow 220ms ease-in-out;
 }
 
 .left-sidebar nav ul {
@@ -82,16 +83,25 @@ body * {
 	color: var(--text-light-green) !important;
 }
 
+/* give the main page heading some breathing room below it */
+.container > .content-wrapper > h2 {
+    margin-bottom: 24px;
+}
+
 .table thead th,
 .table thead th * {
 	color: var(--text-light-green) !important;
 }
 
 
-/* Main content spacing so it doesn't collide with the sidebar */
+/* Main content spacing so it doesn't collide with the sidebar.
+   The layout supports a collapsed sidebar (brand only) and an expanded
+   sidebar (brand + tabs). By default the nav (tabs) are collapsed so the
+   content starts after the compact brand width. Toggling adds body.show-sidebar
+   which expands the nav and shifts the content. */
 .container {
 	position: absolute;
-	left: 0; /* full width when sidebar hidden */
+	left: 80px; /* leave space for the always-visible brand when collapsed */
 	top: 0;
 	right: 0;
 	padding: 28px 40px 40px 40px; /* top and side padding for content */
@@ -102,12 +112,55 @@ body * {
 }
 
 /* when body has show-sidebar class show sidebar and shift content */
-body.show-sidebar .left-sidebar {
-	transform: translateX(0);
+/* By default nav links are hidden (collapsed). The brand remains visible.
+   When body.show-sidebar is present the nav is shown and the content shifts. */
+.left-sidebar .sidebar-nav {
+	transform: translateX(-999px);
+	opacity: 0;
+	transition: transform 220ms ease-in-out, opacity 200ms ease-in-out;
 }
 
+
+body.show-sidebar .left-sidebar {
+	/* when expanded show the warm background, border and shadow */
+	width: 260px;
+	background: #fff7f0;
+	border-right: 1px solid rgba(0, 0, 0, 0.04);
+	box-shadow: 4px 0 30px rgba(0, 0, 0, 0.03);
+}
+
+body.show-sidebar .left-sidebar .sidebar-nav {
+	transform: translateX(0);
+	opacity: 1;
+}
+
+/* Content shifts to make room for the expanded sidebar */
 body.show-sidebar .container {
 	left: 260px;
+}
+
+/* When collapsed keep sidebar narrow (show just brand area) */
+.left-sidebar.collapsed,
+body:not(.show-sidebar) .left-sidebar {
+	width: 80px;
+}
+
+.left-sidebar .sidebar-brand {
+	padding: 28px 12px 8px 12px;
+	/* larger and bolder brand text */
+	font-size: 16px !important;
+	font-weight: 800 !important;
+	color: #fec721 !important; /* dark orange */
+	line-height: 1.05;
+}
+
+.left-sidebar .sidebar-nav nav ul {
+	padding-left: 8px;
+}
+
+.left-sidebar .sidebar-link {
+	display: block;
+	padding: 8px 12px;
 }
 
 /* wrap content to prevent it stretching under the sidebar visual area */
@@ -119,21 +172,27 @@ body.show-sidebar .container {
 
 /* Toggle button to reveal sidebar when needed */
 .sidebar-toggle {
+	/* fixed at the top-left so the toggle is always visible above the brand */
 	position: fixed;
-	top: 12px;
-	left: 12px;
-	z-index: 40;
+	top: 35px;
+	left: 125px;
+	z-index: 60;
 	background: white;
 	border: 1px solid rgba(0,0,0,0.08);
-	border-radius: 6px;
+	border-radius: 4px;
 	padding: 8px 10px;
 	cursor: pointer;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
 
-/* Hide the toggle when sidebar is visible to avoid double controls */
+/* shift toggle when sidebar expanded to avoid overlap */
 body.show-sidebar .sidebar-toggle {
 	left: 280px;
+}
+
+/* keep focus outline subtle */
+.sidebar-toggle:focus {
+	outline: none;
 }
 
 /* Dashboard cards */
@@ -141,7 +200,8 @@ body.show-sidebar .sidebar-toggle {
 	display: flex;
 	gap: 20px;
 	justify-content: space-between;
-	margin-top: 20px;
+	/* increase spacing so cards appear noticeably lower than the heading */
+	margin-top: 64px;
 }
 
 .dashboard .card {
