@@ -66,7 +66,7 @@ body * {
 }
 
 .left-sidebar nav li {
-	margin: 18px 0;
+	margin: 12px 0;
 }
 
 .sidebar-brand,
@@ -158,9 +158,66 @@ body:not(.show-sidebar) .left-sidebar {
 	padding-left: 8px;
 }
 
+
 .left-sidebar .sidebar-link {
 	display: block;
-	padding: 8px 12px;
+	padding: 10px 14px;
+	border-radius: 10px;
+	/* default: white rounded tiles for all non-dashboard links */
+	background: rgba(255,255,255,0.96);
+	color: var(--text-light-green) !important;
+	font-weight: 700;
+	margin: 6px 6px 6px 6px;
+	box-shadow: 0 6px 18px rgba(8, 35, 25, 0.04);
+	transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease;
+	text-decoration: none;
+}
+
+.left-sidebar .sidebar-link:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 10px 30px rgba(8, 35, 25, 0.07);
+	filter: brightness(0.98);
+}
+
+/* keep active state slightly darker to maintain emphasis */
+.left-sidebar .sidebar-link.active {
+	/* keep active non-dashboard links visually elevated but white */
+	background: rgba(255,255,255,0.98);
+	color: var(--text-light-green) !important;
+	box-shadow: 0 10px 30px rgba(8, 35, 25, 0.07);
+}
+
+/* Ensure the dashboard link keeps the same distinctive deep shade as in your screenshot */
+.left-sidebar .sidebar-link.dashboard-link {
+	/* Dashboard link keeps the original deep gradient */
+	background: linear-gradient(135deg, #064a3a 0%, #083d30 100%);
+	color: white !important;
+}
+
+.left-sidebar .sidebar-link.dashboard-link.active {
+	background: linear-gradient(135deg, #d2f160 0%, #d4a80b 100%);
+}
+
+/* Make other sidebar tabs (below Dashboard) use the same green gradient shade
+   as in the screenshot: a pleasant green gradient, slightly lighter than the
+   Dashboard link so Dashboard remains visually primary. */
+.left-sidebar .sidebar-link.students-link,
+.left-sidebar .sidebar-link.departments-link,
+.left-sidebar .sidebar-link.courses-link {
+	background: linear-gradient(135deg, #d2f160 0%, #d4a80b 100%);
+	color: white !important;
+}
+
+.left-sidebar .sidebar-link.students-link:hover,
+.left-sidebar .sidebar-link.departments-link:hover,
+.left-sidebar .sidebar-link.courses-link:hover {
+	filter: brightness(0.96);
+}
+
+.left-sidebar .sidebar-link.students-link.active,
+.left-sidebar .sidebar-link.departments-link.active,
+.left-sidebar .sidebar-link.courses-link.active {
+	background: linear-gradient(135deg, #1f7b56 0%, #064e3b 100%);
 }
 
 /* wrap content to prevent it stretching under the sidebar visual area */
@@ -219,7 +276,7 @@ body.show-sidebar .sidebar-toggle {
 
 .dashboard .card p {
 	margin: 6px 0;
-	font-weight: 600;
+	font-weight: 700;
 }
 
 /* Colorful variations for dashboard cards */
@@ -262,6 +319,26 @@ body.show-sidebar .sidebar-toggle {
 .card.card-courses h3,
 .card.card-courses p {
 	color: #ffffff !important;
+}
+
+/* Page header cards: reuse dashboard gradients but make them full-width for list pages */
+.page-card {
+	border-radius: 8px;
+	padding: 18px 22px;
+	color: #fff;
+	margin-bottom: 18px;
+	box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+.page-card h3 {
+	margin: 0 0 6px 0;
+	font-size: 20px;
+	font-weight: 800;
+}
+
+.page-card p {
+	margin: 0;
+	font-weight: 700;
 }
 /* Ensure Add buttons align like other lists */
 .content-wrapper > .btn {

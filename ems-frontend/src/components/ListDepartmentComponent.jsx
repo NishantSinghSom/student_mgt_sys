@@ -8,7 +8,10 @@ const ListDepartmentComponent = () => {
   return (
     <div className="container">
       <div className="content-wrapper">
-        <h2 className="text-center py-3">List of Departments</h2>
+        <div className="page-card card-departments">
+          <h3>Departments</h3>
+          <p>No. of Departments: {departments.length}</p>
+        </div>
         <ButtonLink text="Add Department" toAction="/add-department" />
         <table className="table table-striped">
         <thead>

@@ -9,22 +9,22 @@ const HeaderComponent = () => {
           <nav>
             <ul>
               <li>
-                <NavLink className="sidebar-link" to="/dashboard" end>
+                <NavLink className="sidebar-link dashboard-link" to="/dashboard" end>
                   Dashboard
                 </NavLink>
               </li>
               <li>
-                <NavLink className="sidebar-link" to="/students" end>
+                <NavLink className="sidebar-link students-link" to="/students" end>
                   Students
                 </NavLink>
               </li>
               <li>
-                <NavLink className="sidebar-link" to="/departments" end>
+                <NavLink className="sidebar-link departments-link" to="/departments" end>
                   Departments
                 </NavLink>
               </li>
               <li>
-                <NavLink className="sidebar-link" to="/courses" end>
+                <NavLink className="sidebar-link courses-link" to="/courses" end>
                   Courses
                 </NavLink>
               </li>

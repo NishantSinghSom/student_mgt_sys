@@ -8,7 +8,10 @@ const ListCourseComponent = () => {
   return (
     <div className="container">
       <div className="content-wrapper">
-        <h2 className="text-center py-3">List of Courses</h2>
+        <div className="page-card card-courses">
+          <h3>Courses</h3>
+          <p>No. of Courses: {courses.length}</p>
+        </div>
         <ButtonLink text="Add Course" toAction="/add-course" />
         <table className="table table-striped">
           <thead>
