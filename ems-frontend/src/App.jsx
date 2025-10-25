@@ -10,8 +10,13 @@ import ListCourseComponent from "./components/ListCourseComponent";
 import CourseComponent from "./components/CourseComponent";
 
 function App() {
+  const toggleSidebar = () => {
+    // toggle a class on body to show/hide the sidebar
+    document.body.classList.toggle("show-sidebar");
+  };
   return (
     <>
+      <button className="sidebar-toggle" onClick={toggleSidebar} aria-label="Toggle sidebar">☰</button>
       <BrowserRouter>
         <HeaderComponent />
         <Routes>

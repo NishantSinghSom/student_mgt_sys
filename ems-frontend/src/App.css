@@ -54,6 +54,8 @@ body * {
 	padding-top: 8px;
 	box-shadow: 4px 0 30px rgba(0, 0, 0, 0.03);
 	z-index: 20; /* keep sidebar above page content */
+	transform: translateX(-280px); /* hide by default */
+	transition: transform 220ms ease-in-out;
 }
 
 .left-sidebar nav ul {
@@ -89,13 +91,23 @@ body * {
 /* Main content spacing so it doesn't collide with the sidebar */
 .container {
 	position: absolute;
-	left: 260px;
+	left: 0; /* full width when sidebar hidden */
 	top: 0;
 	right: 0;
 	padding: 28px 40px 40px 40px; /* top and side padding for content */
 	min-height: 100vh;
 	box-sizing: border-box;
 	z-index: 1;
+	transition: left 220ms ease-in-out, margin 220ms ease-in-out;
+}
+
+/* when body has show-sidebar class show sidebar and shift content */
+body.show-sidebar .left-sidebar {
+	transform: translateX(0);
+}
+
+body.show-sidebar .container {
+	left: 260px;
 }
 
 /* wrap content to prevent it stretching under the sidebar visual area */
@@ -103,6 +115,25 @@ body * {
 	max-width: 1100px;
 	margin: 0 auto;
 	background: transparent;
+}
+
+/* Toggle button to reveal sidebar when needed */
+.sidebar-toggle {
+	position: fixed;
+	top: 12px;
+	left: 12px;
+	z-index: 40;
+	background: white;
+	border: 1px solid rgba(0,0,0,0.08);
+	border-radius: 6px;
+	padding: 8px 10px;
+	cursor: pointer;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Hide the toggle when sidebar is visible to avoid double controls */
+body.show-sidebar .sidebar-toggle {
+	left: 280px;
 }
 
 /* Dashboard cards */
@@ -131,6 +162,47 @@ body * {
 	font-weight: 600;
 }
 
+/* Colorful variations for dashboard cards */
+.card-students {
+	/* stronger selector and !important to override Bootstrap defaults */
+	background: linear-gradient(135deg, #7dd3c9 0%, #059669 100%) !important;
+	color: white !important;
+	min-height: 140px;
+}
+
+.card-departments {
+	background: linear-gradient(135deg, #93c5fd 0%, #2563eb 100%) !important;
+	color: white !important;
+	min-height: 140px;
+}
+
+.card-courses {
+	/* choose a darker warm gradient so white text is readable */
+	background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%) !important;
+	color: #ffffff !important;
+	min-height: 140px;
+}
+
+.card-students h3,
+.card-departments h3,
+.card-courses h3 {
+	color: inherit !important;
+}
+
+.card.card-students h3,
+.card.card-students p {
+	color: #fff !important;
+}
+
+.card.card-departments h3,
+.card.card-departments p {
+	color: #fff !important;
+}
+
+.card.card-courses h3,
+.card.card-courses p {
+	color: #ffffff !important;
+}
 /* Ensure Add buttons align like other lists */
 .content-wrapper > .btn {
 	margin-bottom: 12px;
