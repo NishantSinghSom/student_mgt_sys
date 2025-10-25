@@ -1,22 +1,22 @@
 import ButtonLink from "./ButtonLink";
-import { useState } from "react";
+import useCourseComponentHook from "../hooks/useCourseComponentHook";
 
 const CourseComponent = () => {
-  const [courseName, setCourseName] = useState("");
-  const [courseDescription, setCourseDescription] = useState("");
-
-  const saveCourse = (e) => {
-    e.preventDefault();
-    // For now just console.log; not wired to backend per instruction
-    console.log("Save course", { courseName, courseDescription });
-  };
+  const {
+    courseName,
+    setCourseName,
+    courseDescription,
+    setCourseDescription,
+    title,
+    saveOrUpdateCourse,
+  } = useCourseComponentHook();
 
   return (
     <div className="container mt-5">
       <ButtonLink text="Go Back" toAction="/courses" />
       <div className="row">
         <div className="card col-md-6 offset-md-3 offset-md-3">
-          <h2 className="text-center">Add Course</h2>
+          <h2 className="text-center">{title}</h2>
           <div className="card-body">
             <form>
               <div className="form-group mb-2">
@@ -41,7 +41,10 @@ const CourseComponent = () => {
                   onChange={(e) => setCourseDescription(e.target.value)}
                 />
               </div>
-              <button className="btn btn-outline-success" onClick={saveCourse}>
+              <button
+                className="btn btn-outline-success"
+                onClick={saveOrUpdateCourse}
+              >
                 Submit
               </button>
             </form>

@@ -1,15 +1,9 @@
 import ButtonLink from "./ButtonLink";
-import { useState } from "react";
+import useListCourseComponentHook from "../hooks/useListCourseComponentHook";
 
 const ListCourseComponent = () => {
-  const [courses, setCourses] = useState([
-    { id: 1, courseName: "Mathematics", courseDescription: "Math Course" },
-    { id: 2, courseName: "Physics", courseDescription: "Physics Course" },
-  ]);
-
-  const deleteCourse = (id) => {
-    setCourses((prev) => prev.filter((c) => c.id !== id));
-  };
+  const { courses, updateCourse, deleteCourseById } =
+    useListCourseComponentHook();
 
   return (
     <div className="container">
@@ -31,12 +25,17 @@ const ListCourseComponent = () => {
                 <td>{c.courseName}</td>
                 <td>{c.courseDescription}</td>
                 <td>
-                  <button className="btn btn-outline-info">Update</button>
+                  <button
+                    className="btn btn-outline-info"
+                    onClick={() => updateCourse(c.id)}
+                  >
+                    Update
+                  </button>
                 </td>
                 <td>
                   <button
                     className="btn btn-outline-danger"
-                    onClick={() => deleteCourse(c.id)}
+                    onClick={() => deleteCourseById(c.id)}
                   >
                     Delete
                   </button>

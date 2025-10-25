@@ -34,6 +34,7 @@ function App() {
           />
           <Route path="/courses" element={<ListCourseComponent />} />
           <Route path="/add-course" element={<CourseComponent />} />
+          <Route path="/edit-course/:id" element={<CourseComponent />} />
         </Routes>
       </BrowserRouter>
     </>
