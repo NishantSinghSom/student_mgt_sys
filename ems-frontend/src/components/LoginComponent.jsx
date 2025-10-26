@@ -17,8 +17,12 @@ const LoginComponent = () => {
     try {
       const token = await loginUser({ username, password });
       if (token) {
-        document.body.classList.add("show-sidebar");
-        navigate("/dashboard");
+        // Ensure sidebar is hidden by default after login
+        document.body.classList.remove("show-sidebar");
+        // Force a state update by dispatching an event
+        window.dispatchEvent(new Event("auth-changed"));
+        // Use replace instead of navigate to force a clean state
+        window.location.href = "/dashboard";
       } else {
         setError("Login failed - no token received");
       }
@@ -30,10 +34,11 @@ const LoginComponent = () => {
     }
   };
 
-  return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <h2>Welcome Back</h2>
+    return (
+      <div className="auth-page">
+        <div className="auth-brand">Student Management System</div>
+        <div className="auth-container">
+          <h2>Welcome Back</h2>
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
             <label>Username</label>

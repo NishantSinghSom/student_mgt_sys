@@ -31,6 +31,7 @@ const RegisterComponent = () => {
 
   return (
     <div className="auth-page">
+      <div className="auth-brand">Student Management System</div>
       <div className="auth-container">
         <h2>Create Account</h2>
         <form onSubmit={handleSubmit} className="auth-form">

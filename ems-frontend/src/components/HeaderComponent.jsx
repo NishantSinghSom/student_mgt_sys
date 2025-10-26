@@ -10,10 +10,17 @@ export const useAuth = () => {
     // Initialize token state
     setToken(getToken());
     
-    // Listen for changes (e.g., from other tabs)
+    // Listen for changes (e.g., from other tabs or login/logout)
     const onStorage = () => setToken(getToken());
+    const onAuthChanged = () => setToken(getToken());
+    
     window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
+    window.addEventListener("auth-changed", onAuthChanged);
+    
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      window.removeEventListener("auth-changed", onAuthChanged);
+    };
   }, []);
 
   return { isAuthenticated: !!token };
@@ -24,10 +31,20 @@ const HeaderComponent = () => {
   const [token, setToken] = useState(null);
 
   useEffect(() => {
-    const token = getToken();
-    setToken(token);
-    // Remove sidebar by default after login
-    document.body.classList.remove("show-sidebar");
+    const initializeAuth = () => {
+      const token = getToken();
+      setToken(token);
+      // Always ensure sidebar is hidden initially
+      document.body.classList.remove("show-sidebar");
+    };
+
+    // Initialize on mount
+    initializeAuth();
+    
+    // Listen for auth changes
+    const onAuthChanged = () => {
+      initializeAuth();
+    };
     
     const onStorage = () => {
       const newToken = getToken();
@@ -35,6 +52,15 @@ const HeaderComponent = () => {
       if (!newToken) {
         document.body.classList.remove("show-sidebar");
       }
+    };
+
+    // Add auth-changed event listener
+    window.addEventListener("auth-changed", onAuthChanged);
+    window.addEventListener("storage", onStorage);
+
+    return () => {
+      window.removeEventListener("auth-changed", onAuthChanged);
+      window.removeEventListener("storage", onStorage);
     };
     window.addEventListener("storage", onStorage);
     return () => window.removeEventListener("storage", onStorage);

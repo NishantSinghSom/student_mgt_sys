@@ -28,11 +28,19 @@ function App() {
     }
   };
 
-  // Set initial sidebar state when auth state changes
   useEffect(() => {
-    // Always ensure sidebar is hidden by default
+    // Set initial state
     document.body.classList.remove("show-sidebar");
-  }, [isAuthenticated]);
+    
+    // Listen for auth changes
+    const handleAuthChange = () => {
+      // Force a re-render on auth change
+      window.location.reload();
+    };
+    
+    window.addEventListener("auth-changed", handleAuthChange);
+    return () => window.removeEventListener("auth-changed", handleAuthChange);
+  }, []);
 
   return (
     <BrowserRouter>

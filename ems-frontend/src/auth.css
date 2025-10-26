@@ -1,9 +1,11 @@
 /* Auth pages */
 .auth-page {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start; /* start from top so brand sits above the card */
   align-items: center;
   min-height: 100vh;
+  padding-top: 3.5rem; /* give space at top */
   background-color: #f5f5f5;
 }
 
@@ -19,7 +21,19 @@
 .auth-container h2 {
   margin-bottom: 1.5rem;
   text-align: center;
-  color: #333;
+  color: #b0b614; /* dark green for section title */
+  font-size: 1.6rem;
+}
+
+/* Brand heading for auth pages */
+.auth-brand {
+  text-align: center;
+  color: #b8a710 !important; /* orange - force override of global color */
+  font-size: 2rem; /* larger than the h2 */
+  font-weight: 800;
+  margin-bottom: 1rem;
+  margin-top: 0.75rem;
+  line-height: 1;
 }
 
 .auth-form .form-group {
