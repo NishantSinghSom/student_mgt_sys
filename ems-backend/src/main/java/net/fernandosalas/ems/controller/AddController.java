@@ -21,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/add")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AddController {
 
     @Autowired
@@ -52,20 +53,28 @@ public class AddController {
     }
 */
     @PostMapping("/new")
-    public String addNewUser(@RequestBody UserInfo userInfo) {
-        return service.addUser(userInfo);
+    public ResponseEntity<?> addNewUser(@RequestBody UserInfo userInfo) {
+        try {
+            String result = service.addUser(userInfo);
+            return ResponseEntity.ok(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Registration failed: " + e.getMessage());
+        }
     }
 
-    
     @PostMapping("/authenticate")
-    public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-        if (authentication.isAuthenticated()) {
-            return jwtService.generateToken(authRequest.getUsername());
-        } else {
-            throw new UsernameNotFoundException("invalid user request !");
+    public ResponseEntity<?> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword())
+            );
+            if (authentication.isAuthenticated()) {
+                String token = jwtService.generateToken(authRequest.getUsername());
+                return ResponseEntity.ok(token);
+            }
+            return ResponseEntity.status(401).body("Authentication failed");
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("Invalid credentials");
         }
-
-
     }
 }
